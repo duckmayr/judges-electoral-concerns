@@ -5,11 +5,13 @@ date: "`r gsub(' 0', ' ', x = format(Sys.Date(), '%B %d, %Y'))`"
 fontsize: 12pt
 titlepage: true
 abstract: "Abstract (typically should be 150 words or less)"
+graphics: yes
 output: quack::article
 ---
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+quack::attach_common_packages()
 ```
 
 # Introduction
@@ -22,6 +24,44 @@ I take a new approach and consider that judges might take into account the polic
 # Literature Review
 
 # The Model
+
+The problem I am focusing on is a multimember court faced with an opportunity to adopt a controversial policy that a majority of its members want to adopt, and I restrict my attention to the bargaining problem among that majority.
+That is, they must determine how far they are willing to go given the controversial nature of the policy; do they fully implement the controversial policy and risk electoral backlash against their ideological allies in the government, or do they avoid adopting it for fear of electoral backlash?
+Or perhaps do they take a half-measure, balancing their desire to implement this policy and their concern for the policies in the legislature's domain in the next period?
+
+So, I consider a set $J$ of the judges of the potential majority coalition to enact this policy; each judge $i$'s preferences can be represented by the following utility function:
+
+\begin{equation}
+U_i(p; \alpha_i, \beta_i, \varepsilon, \kappa)
+= p\alpha_i + \left( 1 - \kappa p^\varepsilon \right)\beta_i.
+\end{equation}
+
+Here $p \in [0, 1]$ represents the extent to which the court's opinion adopts the controversial policy and $\alpha_i > 0$ is the value of the policy to judge $i$, so that $p\alpha_i$ represents the policy gain from a choice of $p$ from $i$'s perspective.
+However, $i$ also cares about the policies that will be enacted by the government in the next period.
+Normalizing the value of the platform of $i$'s political opponents to $0$, $\beta_i$ represents the expected benefit of legislative policy in the next period---that is, the value of the platform of $i$'s copartisans weighted by the *a priori* probability that they are elected into government.
+Then $1 - \kappa p^\varepsilon$ represents the electoral penalty against $i$'s copartisans for a particular choice of $p$; $\kappa \in (0, 1)$ represents the electoral cost of full implementation of the controversial policy (when $p = 1$, then $1 - \kappa p^\varepsilon = 1 - \kappa$) and $\varepsilon > 0$ governs how quickly the electoral cost approaches its maximum value as $p$ increases.
+If $\varepsilon \in (0, 1)$, any movement toward the controversial policy is very quickly punished by the electorate, if $\varepsilon = 1$, the cost is linear in $p$, and if $\varepsilon > 1$, the electorate does not much mind *some* movement toward the controversial policy, but eventually the backlash begins to build quickly as $p$ increases; this relationship is illustrated in Figure \@ref(fig:epsilon).
+
+```{r epsilon, fig.cap = "Electoral cost of $p$ for different values of $\\varepsilon$", fig.width = 5, fig.height = 3}
+parse_text = function(x) parse(text = x)
+p = seq(from = 0, to = 1, by = 0.01)
+low_e  = p^(1/4)
+mid_e  = p
+high_e = p^4
+b = c(low_e, mid_e, high_e)
+n = c("epsilon == 1/4", "epsilon == 1", "epsilon == 4")
+g = rep(n, each = length(p))
+l = parse_text(c("0", "kappa / 2", "kappa"))
+d = data.frame(p, b, g)
+v = setNames(c("solid", "dashed", "dotted"), n)
+ggplot(data = d, mapping = aes(x = p, y = b, linetype = g)) +
+    geom_line(size = 1) +
+    xlab(bquote(p)) + ylab(bquote(kappa * p^epsilon)) +
+    scale_linetype_manual(values = v, name = "", labels = parse_text) +
+    scale_y_continuous(breaks = c(0, 1/2, 1), labels = l) +
+    theme_bw() +
+    theme(legend.key.width = unit(2, "line"))
+```
 
 # Data and Methods
 
