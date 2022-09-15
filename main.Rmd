@@ -1,0 +1,30 @@
+---
+title: "Institutional or Electoral Preferences?\\newline Judges' Extended Calculus"
+author: "JBrandon Duck-Mayr"
+date: "`r gsub(' 0', ' ', x = format(Sys.Date(), '%B %d, %Y'))`"
+fontsize: 12pt
+titlepage: true
+abstract: "Abstract (typically should be 150 words or less)"
+output: quack::article
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Introduction
+
+Some popular accounts of the US Supreme Court's decisions in *NFIB v. Sebelius* and *Dobbs v. Jackson Women's Health Organization* paint Chief Justice John Roberts as an ardent institutionalist, seeking a middle way to protect the Court's legitimacy; but what if there was another dynamic at play?
+A strand of the judicial politics literature argues that politicians may offload the responsibility for pulling the trigger on controversial policies to the courts, either because they do not have the leeway to enact their preferred policies or to avoid electoral consequences [CITE CITE CITE].
+Generally, in these analyses, the courts are treated as only considering the *direct* policy ramifications of their decisions.
+I take a new approach and consider that judges might take into account the policies that politicians will be able to pass in the periods following a controversial decision by the courts... as we've seen with the aftermath of the *Dobbs* decision, such cases can have an impact on citizens' voting intentions [CITE].
+
+# Literature Review
+
+# The Model
+
+# Data and Methods
+
+# Results
+
+# Conclusion
