@@ -1,0 +1,11 @@
+%% Define a convenience command for partial derivatives
+\newcommand{\pd}[1]{\ensuremath{\frac{\partial}{\partial #1}}}
+
+%% Setup theorem support
+\let\openbox\relax
+\usepackage{amsthm}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}[proposition]{Lemma}
+\newtheorem{corollary}{Corollary}[proposition]
+\newtheorem{remark}{Remark}[proposition]
+

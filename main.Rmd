@@ -6,11 +6,15 @@ fontsize: 12pt
 titlepage: true
 abstract: "Abstract (typically should be 150 words or less)"
 graphics: yes
-output: quack::article
+output:
+    quack::article:
+        includes:
+            in_header: preamble.tex
 ---
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+options(bookdown.theorem.preamble = FALSE)
 quack::attach_common_packages()
 ```
 
@@ -60,11 +64,45 @@ ggplot(data = d, mapping = aes(x = p, y = b, linetype = g)) +
     scale_linetype_manual(values = v, name = "", labels = parse_text) +
     scale_y_continuous(breaks = c(0, 1/2, 1), labels = l) +
     theme_bw() +
-    theme(legend.key.width = unit(2, "line"))
+    theme(
+        legend.key.width = unit(2, "line"),
+        legend.text = element_text(size = 10)
+    )
 ```
+
+## Deterministic $\varepsilon$
+
+Starting with the simplest case, if there is no uncertainty over $\varepsilon$, and a judge $i$ were able to decide the case alone, the resulting decision theoretic problem would be easy for the judge to solve.
+
+::: {.proposition}
+
+If there is no uncertainty over $\varepsilon$ and only one judge, the judge chooses
+
+$$p=\left(\frac{\alpha_i}{\varepsilon\beta_i\kappa}\right)^{1/(\varepsilon-1)}$$
+
+unless $\varepsilon = 1$; then the judge chooses $p = 1$ if $\alpha_i > \kappa\beta_i$ and $p = 0$ otherwise.
+
+:::
+
+However, when dealing with a multimember court, the judges must find a solution they can all live with.
+Since the judges' "outside option" is not enacting the controversial policy to any extent, it is worth $\beta_i$; however, they can only access this option unilaterally if their refusing to sign onto the majority coalition's opinion would deprive it of majority status.
+This is the simplest case when we have multiple judges, so let's start there.
+
+In this case, any judge $i$ will refuse to sign on to an opinion with $p \neq 0$ unless $p$ is such that
+
+$$
+p > \left(\frac{\kappa\beta_i}{\alpha_i}\right)^{1 - \varepsilon}.
+$$
+
+## Stochastic $\varepsilon$
+
+## Stochastic $\varepsilon$ With Private Signals
 
 # Data and Methods
 
 # Results
 
 # Conclusion
+
+```{r child = "appendix.Rmd"}
+```
