@@ -8,9 +8,9 @@
 
 If there is no uncertainty over $\varepsilon$ and only one judge, the judge chooses
 
-$$p=\left(\frac{\alpha_i}{\varepsilon\beta_i\kappa}\right)^{1/(\varepsilon-1)}$$
+$$p=\left(\frac{\alpha_i}{\varepsilon\beta_i}\right)^{1/(\varepsilon-1)}$$
 
-unless $\varepsilon = 1$; then the judge chooses $p = 1$ if $\alpha_i > \kappa\beta_i$ and $p = 0$ otherwise.
+unless $\varepsilon = 1$; then the judge chooses $p = 1$ if $\alpha_i > \beta_i$ and $p = 0$ otherwise.
 
 :::
 
@@ -19,23 +19,23 @@ unless $\varepsilon = 1$; then the judge chooses $p = 1$ if $\alpha_i > \kappa\b
 When there is only one judge and no uncertainty over $\varepsilon$ to integrate out, it becomes a simple optimization problem:
 
 \begin{align*}
-U_i(p; \alpha_i, \beta_i, \varepsilon, \kappa)
-& = p\alpha_i + \left( 1 - \kappa p^\varepsilon \right)\beta_i \\
-& = p\alpha_i + \beta_i - \kappa p^\varepsilon\beta_i \\
+U_i(p; \alpha_i, \beta_i, \varepsilon)
+& = p\alpha_i + \left( 1 - p^\varepsilon \right)\beta_i \\
+& = p\alpha_i + \beta_i - p^\varepsilon\beta_i \\
 \pd{p} U_i
-& = \pd{p} p\alpha_i + \pd{p} \beta_i - \pd{p} \kappa p^\varepsilon\beta_i \\
-& = \alpha_i - \varepsilon\beta_i\kappa p^{\varepsilon-1} \\
-0 & \equiv \alpha_i - \varepsilon\beta_i\kappa p^{\varepsilon-1} \\
+& = \pd{p} p\alpha_i + \pd{p} \beta_i - \pd{p} p^\varepsilon\beta_i \\
+& = \alpha_i - \varepsilon\beta_i p^{\varepsilon-1} \\
+0 & \equiv \alpha_i - \varepsilon\beta_i p^{\varepsilon-1} \\
 \alpha_i
-& = \varepsilon\beta_i\kappa p^{\varepsilon-1} \\
+& = \varepsilon\beta_i p^{\varepsilon-1} \\
 p^{\varepsilon-1}
-& = \frac{\alpha_i}{\varepsilon\beta_i\kappa} \\
+& = \frac{\alpha_i}{\varepsilon\beta_i} \\
 p^\ast
-& = \left(\frac{\alpha_i}{\varepsilon\beta_i\kappa}\right)^{1/(\varepsilon-1)}.
+& = \left(\frac{\alpha_i}{\varepsilon\beta_i}\right)^{1/(\varepsilon-1)}.
 \end{align*}
 
 However, this $p^\ast$ is undefined when $\varepsilon = 1$, which makes sense:
 In that case, $i$'s utility is linear in $p$ so we're looking at a corner solution.
-If $\alpha_i > \kappa\beta_i$, then $U_i$ is increasing in $p$, so $i$ should choose $p = 1$, while the opposite is true if $\alpha_i < \kappa\beta_i$.
+If $\alpha_i > \beta_i$, then $U_i$ is increasing in $p$, so $i$ should choose $p = 1$, while the opposite is true if $\alpha_i < \beta_i$.
 
 :::

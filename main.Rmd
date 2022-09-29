@@ -36,14 +36,15 @@ Or perhaps do they take a half-measure, balancing their desire to implement this
 So, I consider a set $J$ of the judges of the potential majority coalition to enact this policy; each judge $i$'s preferences can be represented by the following utility function:
 
 \begin{equation}
-U_i(p; \alpha_i, \beta_i, \varepsilon, \kappa)
-= p\alpha_i + \left( 1 - \kappa p^\varepsilon \right)\beta_i.
+U_i(p; \alpha_i, \beta_i, \varepsilon)
+= p\alpha_i + \left( 1 - p^\varepsilon \right)\beta_i.
 \end{equation}
 
 Here $p \in [0, 1]$ represents the extent to which the court's opinion adopts the controversial policy and $\alpha_i > 0$ is the value of the policy to judge $i$, so that $p\alpha_i$ represents the policy gain from a choice of $p$ from $i$'s perspective.
 However, $i$ also cares about the policies that will be enacted by the government in the next period.
 Normalizing the value of the platform of $i$'s political opponents to $0$, $\beta_i$ represents the expected benefit of legislative policy in the next period---that is, the value of the platform of $i$'s copartisans weighted by the *a priori* probability that they are elected into government.
-Then $1 - \kappa p^\varepsilon$ represents the electoral penalty against $i$'s copartisans for a particular choice of $p$; $\kappa \in (0, 1)$ represents the electoral cost of full implementation of the controversial policy (when $p = 1$, then $1 - \kappa p^\varepsilon = 1 - \kappa$) and $\varepsilon > 0$ governs how quickly the electoral cost approaches its maximum value as $p$ increases.
+Then $1 - p^\varepsilon$ represents the electoral penalty against $i$'s copartisans for a particular choice of $p$; $\varepsilon > 0$ governs how quickly the electoral cost approaches its maximum value as $p$ increases.
+<!-- Add footnote about former parameter \kappa -->
 If $\varepsilon \in (0, 1)$, any movement toward the controversial policy is very quickly punished by the electorate, if $\varepsilon = 1$, the cost is linear in $p$, and if $\varepsilon > 1$, the electorate does not much mind *some* movement toward the controversial policy, but eventually the backlash begins to build quickly as $p$ increases; this relationship is illustrated in Figure \@ref(fig:epsilon).
 
 ```{r epsilon, fig.cap = "Electoral cost of $p$ for different values of $\\varepsilon$", fig.width = 5, fig.height = 3}
@@ -55,14 +56,13 @@ high_e = p^4
 b = c(low_e, mid_e, high_e)
 n = c("epsilon == 1/4", "epsilon == 1", "epsilon == 4")
 g = rep(n, each = length(p))
-l = parse_text(c("0", "kappa / 2", "kappa"))
 d = data.frame(p, b, g)
 v = setNames(c("solid", "dashed", "dotted"), n)
 ggplot(data = d, mapping = aes(x = p, y = b, linetype = g)) +
     geom_line(size = 1) +
     xlab(bquote(p)) + ylab(bquote(kappa * p^epsilon)) +
     scale_linetype_manual(values = v, name = "", labels = parse_text) +
-    scale_y_continuous(breaks = c(0, 1/2, 1), labels = l) +
+    scale_y_continuous(breaks = c(0, 1/2, 1)) +
     theme_bw() +
     theme(
         legend.key.width = unit(2, "line"),
@@ -78,9 +78,9 @@ Starting with the simplest case, if there is no uncertainty over $\varepsilon$, 
 
 If there is no uncertainty over $\varepsilon$ and only one judge, the judge chooses
 
-$$p=\left(\frac{\alpha_i}{\varepsilon\beta_i\kappa}\right)^{1/(\varepsilon-1)}$$
+$$p=\left(\frac{\alpha_i}{\varepsilon\beta_i}\right)^{1/(\varepsilon-1)}$$
 
-unless $\varepsilon = 1$; then the judge chooses $p = 1$ if $\alpha_i > \kappa\beta_i$ and $p = 0$ otherwise.
+unless $\varepsilon = 1$; then the judge chooses $p = 1$ if $\alpha_i > \beta_i$ and $p = 0$ otherwise.
 
 :::
 
@@ -91,7 +91,7 @@ This is the simplest case when we have multiple judges, so let's start there.
 In this case, any judge $i$ will refuse to sign on to an opinion with $p \neq 0$ unless $p$ is such that
 
 $$
-p > \left(\frac{\kappa\beta_i}{\alpha_i}\right)^{1 - \varepsilon}.
+p > \left(\frac{\beta_i}{\alpha_i}\right)^{1 - \varepsilon}.
 $$
 
 ## Stochastic $\varepsilon$
