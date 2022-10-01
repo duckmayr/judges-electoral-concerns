@@ -1,7 +1,7 @@
 ---
-title: "Institutional or Electoral Preferences?\\newline Judges' Extended Calculus"
+title: "Electoral Concerns of Appointed Judges"
 author: "JBrandon Duck-Mayr"
-date: "`r gsub(' 0', ' ', x = format(Sys.Date(), '%B %d, %Y'))`"
+date: "September 30, 2022"
 fontsize: 12pt
 titlepage: true
 abstract: "Abstract (typically should be 150 words or less)"
@@ -25,8 +25,6 @@ A strand of the judicial politics literature argues that politicians may offload
 Generally, in these analyses, the courts are treated as only considering the *direct* policy ramifications of their decisions.
 I take a new approach and consider that judges might take into account the policies that politicians will be able to pass in the periods following a controversial decision by the courts... as we've seen with the aftermath of the *Dobbs* decision, such cases can have an impact on citizens' voting intentions [CITE].
 
-# Literature Review
-
 # The Model
 
 The problem I am focusing on is a multimember court faced with an opportunity to adopt a controversial policy that a majority of its members want to adopt, and I restrict my attention to the bargaining problem among that majority.
@@ -36,70 +34,38 @@ Or perhaps do they take a half-measure, balancing their desire to implement this
 So, I consider a set $J$ of the judges of the potential majority coalition to enact this policy; each judge $i$'s preferences can be represented by the following utility function:
 
 \begin{equation}
-U_i(p; \alpha_i, \beta_i, \varepsilon)
-= p\alpha_i + \left( 1 - p^\varepsilon \right)\beta_i.
+U_i(p; \alpha_i, \beta_i)
+= p\alpha_i + \left( 1 - p^2 \right)\beta_i.
 \end{equation}
 
 Here $p \in [0, 1]$ represents the extent to which the court's opinion adopts the controversial policy and $\alpha_i > 0$ is the value of the policy to judge $i$, so that $p\alpha_i$ represents the policy gain from a choice of $p$ from $i$'s perspective.
 However, $i$ also cares about the policies that will be enacted by the government in the next period.
 Normalizing the value of the platform of $i$'s political opponents to $0$, $\beta_i$ represents the expected benefit of legislative policy in the next period---that is, the value of the platform of $i$'s copartisans weighted by the *a priori* probability that they are elected into government.
-Then $p^\varepsilon$ represents the electoral penalty against $i$'s copartisans for a particular choice of $p$; $\varepsilon > 1$ governs how quickly the electoral cost approaches its maximum value as $p$ increases.
-When $\varepsilon$ is large, the judges can partially implement the controversial policy without the public paying much mind, but when $\varepsilon$ is low, electoral penalties begin mounting with any move toward the controversial policy.
-This relationship is illustrated in Figure \@ref(fig:epsilon).
-<!-- Add footnote about former parameter \kappa -->
+Then $p^2$ represents the electoral penalty against $i$'s copartisans for a particular choice of $p$.
 
-```{r epsilon, fig.cap = "Electoral cost of $p$ for different values of $\\varepsilon$", fig.width = 5, fig.height = 3}
-parse_text = function(x) parse(text = x)
-p = seq(from = 0, to = 1, by = 0.01)
-low_e  = p^2
-mid_e  = p^4
-high_e = p^8
-b = c(high_e, mid_e, low_e)
-n = c("epsilon == 8", "epsilon == 4", "epsilon == 2")
-g = rep(n, each = length(p))
-d = data.frame(p, b, g)
-v = setNames(c("solid", "dashed", "dotted"), n)
-ggplot(data = d, mapping = aes(x = p, y = b, linetype = g)) +
-    geom_line(size = 1) +
-    xlab(bquote(p)) + ylab(bquote(p^epsilon)) +
-    scale_linetype_manual(values = v, name = "", labels = parse_text) +
-    scale_y_continuous(breaks = c(0, 1/2, 1)) +
-    theme_bw() +
-    theme(
-        legend.key.width = unit(2, "line"),
-        legend.text = element_text(size = 10)
-    )
-```
+The choice of $p$ that maximizes each judge's utility is $\alpha_i / (2\beta_i)$.
+However, a judge cannot unilaterally set $p$.
+Suppose one of the judges, who we will label $a$, has proposal power; that is, they announce a value of $p$ that the court's opinion will set and the other judges choose whether or not to sign on to the opinion.
+A judge's utility if there is no majority for setting $p \neq 0$ is the utility of setting $p = 0$, or $\beta_i$; therefore, they would be willing to sign on to any opinion setting $p$ at a value for which $u_i(p) \geq \beta_i$, or $p \in [0, \alpha_i / \beta_i]$.
+So a majority coalition can support an opinion establishing any $p$ that is in the interval $\bigcap_i\, [0, \alpha_i / \beta_i]$.
+If that intersection is nonempty, the proposing judge chooses the $p$ from that interval that is closest to $\alpha_a / (2\beta_a)$.
 
-## Deterministic $\varepsilon$
-
-Starting with the simplest case, if there is no uncertainty over $\varepsilon$, and a judge $i$ were able to decide the case alone, the resulting decision theoretic problem would be easy for the judge to solve.
+The first useful result is
 
 ::: {.proposition}
 
-If there is no uncertainty over $\varepsilon$ and only one judge, the judge chooses $p=\min\left\{1, \left(\frac{\alpha_i}{\varepsilon\beta_i}\right)^{1 /(\varepsilon-1)}\right\}.$
+The maximum value of $p$ that a judge $i$ would accept is increasing in $\alpha_i$ and decreasing in $\beta_i$.
 
 :::
 
-However, when dealing with a multimember court, the judges must find a solution they can all live with.
-Since the judges' "outside option" is not enacting the controversial policy to any extent, it is worth $\beta_i$; however, they can only access this option unilaterally if their refusing to sign onto the majority coalition's opinion would deprive it of majority status.
-This is the simplest case when we have multiple judges, so let's start there.
+This is readily apparent from the judges' acceptance regions, but its meaning is important.
+When a judge is unwilling to sign on to adoption of a controversial policy, they are often portrayed as more moderate than their colleagues who are willing to do so.
+However, $\beta_i$, which represents the value to judge $i$ of the policy gains their copartisans in the legislature could bring to the table, is also a measure of judge $i$'s ideological extremity.
+As $\beta_i$ increases, the judge puts more value on their copartisans being able to enact a very conservative/liberal legislative agenda, which puts pressure on the judge not to endanger these legislative policy gains.
+So contrary to popular narratives, a judge being unwilling to sign on to adoption of a controversial policy may be precisely because they **are** ideologically extreme overall.
+Judges are simply more willing to adopt controversial policies when they are specifically ideologically extreme with respect to the single issue the controversial policy pertains to, and perhaps may even be more moderate overall than abstainers.
 
-In this case, any judge $i$ will refuse to sign on to an opinion with $p \neq 0$ unless $p$ is such that
+# Discussion
 
-$$
-p > \left(\frac{\beta_i}{\alpha_i}\right)^{1 - \varepsilon}.
-$$
-
-## Stochastic $\varepsilon$
-
-## Stochastic $\varepsilon$ With Private Signals
-
-# Data and Methods
-
-# Results
-
-# Conclusion
-
-```{r child = "appendix.Rmd"}
-```
+<!-- ```{r child = "appendix.Rmd"} -->
+<!-- ``` -->
