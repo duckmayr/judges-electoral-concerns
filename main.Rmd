@@ -43,24 +43,25 @@ U_i(p; \alpha_i, \beta_i, \varepsilon)
 Here $p \in [0, 1]$ represents the extent to which the court's opinion adopts the controversial policy and $\alpha_i > 0$ is the value of the policy to judge $i$, so that $p\alpha_i$ represents the policy gain from a choice of $p$ from $i$'s perspective.
 However, $i$ also cares about the policies that will be enacted by the government in the next period.
 Normalizing the value of the platform of $i$'s political opponents to $0$, $\beta_i$ represents the expected benefit of legislative policy in the next period---that is, the value of the platform of $i$'s copartisans weighted by the *a priori* probability that they are elected into government.
-Then $1 - p^\varepsilon$ represents the electoral penalty against $i$'s copartisans for a particular choice of $p$; $\varepsilon > 0$ governs how quickly the electoral cost approaches its maximum value as $p$ increases.
+Then $p^\varepsilon$ represents the electoral penalty against $i$'s copartisans for a particular choice of $p$; $\varepsilon > 1$ governs how quickly the electoral cost approaches its maximum value as $p$ increases.
+When $\varepsilon$ is large, the judges can partially implement the controversial policy without the public paying much mind, but when $\varepsilon$ is low, electoral penalties begin mounting with any move toward the controversial policy.
+This relationship is illustrated in Figure \@ref(fig:epsilon).
 <!-- Add footnote about former parameter \kappa -->
-If $\varepsilon \in (0, 1)$, any movement toward the controversial policy is very quickly punished by the electorate, if $\varepsilon = 1$, the cost is linear in $p$, and if $\varepsilon > 1$, the electorate does not much mind *some* movement toward the controversial policy, but eventually the backlash begins to build quickly as $p$ increases; this relationship is illustrated in Figure \@ref(fig:epsilon).
 
 ```{r epsilon, fig.cap = "Electoral cost of $p$ for different values of $\\varepsilon$", fig.width = 5, fig.height = 3}
 parse_text = function(x) parse(text = x)
 p = seq(from = 0, to = 1, by = 0.01)
-low_e  = p^(1/4)
-mid_e  = p
-high_e = p^4
-b = c(low_e, mid_e, high_e)
-n = c("epsilon == 1/4", "epsilon == 1", "epsilon == 4")
+low_e  = p^2
+mid_e  = p^4
+high_e = p^8
+b = c(high_e, mid_e, low_e)
+n = c("epsilon == 8", "epsilon == 4", "epsilon == 2")
 g = rep(n, each = length(p))
 d = data.frame(p, b, g)
 v = setNames(c("solid", "dashed", "dotted"), n)
 ggplot(data = d, mapping = aes(x = p, y = b, linetype = g)) +
     geom_line(size = 1) +
-    xlab(bquote(p)) + ylab(bquote(kappa * p^epsilon)) +
+    xlab(bquote(p)) + ylab(bquote(p^epsilon)) +
     scale_linetype_manual(values = v, name = "", labels = parse_text) +
     scale_y_continuous(breaks = c(0, 1/2, 1)) +
     theme_bw() +
@@ -76,11 +77,7 @@ Starting with the simplest case, if there is no uncertainty over $\varepsilon$, 
 
 ::: {.proposition}
 
-If there is no uncertainty over $\varepsilon$ and only one judge, the judge chooses
-
-$$p=\left(\frac{\alpha_i}{\varepsilon\beta_i}\right)^{1/(\varepsilon-1)}$$
-
-unless $\varepsilon = 1$; then the judge chooses $p = 1$ if $\alpha_i > \beta_i$ and $p = 0$ otherwise.
+If there is no uncertainty over $\varepsilon$ and only one judge, the judge chooses $p=\min\left\{1, \left(\frac{\alpha_i}{\varepsilon\beta_i}\right)^{1 /(\varepsilon-1)}\right\}.$
 
 :::
 
