@@ -6,10 +6,14 @@ fontsize: 12pt
 titlepage: true
 abstract: "Abstract (typically should be 150 words or less)"
 graphics: yes
+bibliography: judges-electoral-concerns.bib
 output:
     quack::article:
         includes:
             in_header: preamble.tex
+editor_options: 
+  markdown: 
+    wrap: sentence
 ---
 
 ```{r setup, include = FALSE}
@@ -20,12 +24,25 @@ quack::attach_common_packages()
 
 # Introduction
 
-Some popular accounts of the US Supreme Court's decisions in *NFIB v. Sebelius* and *Dobbs v. Jackson Women's Health Organization* paint Chief Justice John Roberts as an ardent institutionalist, seeking a middle way to protect the Court's legitimacy; but what if there was another dynamic at play?
-A strand of the judicial politics literature argues that politicians may offload the responsibility for pulling the trigger on controversial policies to the courts, either because they do not have the leeway to enact their preferred policies or to avoid electoral consequences [CITE CITE CITE].
-Generally, in these analyses, the courts are treated as only considering the *direct* policy ramifications of their decisions.
-I take a new approach and consider that judges might take into account the policies that politicians will be able to pass in the periods following a controversial decision by the courts... as we've seen with the aftermath of the *Dobbs* decision, such cases can have an impact on citizens' voting intentions [CITE].
+Sometimes judges who otherwise seem conservative take actions that seem liberal (or liberal judges taking seemingly conservative actions).
+For example, in *NFIB v. Sebelius*,[^1] Chief Justice John Roberts provided the fifth vote (and wrote the opinion) to uphold the Affordable Care Act, or "Obamacare".
+More recently, Roberts has taken a number of such actions, such as voting (and again writing the opinion) to overturn the Department of Homeland Security's decision to rescind DACA,[^2] or refusing to sign on to Justice Samuel Alito's decision in *Dobbs v. Jackson Women's Health* overturning *Roe v. Wade* and eliminating the constitutional right to abortion
+. This has caused some to question just how conservative Roberts really is, while others paint him as an ardent institutionalist seeking a middle way to protect the Court's legitimacy [see for example @Bassetti2020; @Biskupic2019].
 
-# The Model
+[^1]: *National Federation of Independent Business v. Sebelius*, 567 U.S. 519 (2012).
+
+[^2]: *Department of Homeland Security v. Regents of the University of California*, 591 U.S. \_\_\_ (2020).
+
+But what if there was another dynamic at play? A strand of the judicial politics literature argues that politicians may offload the responsibility for pulling the trigger on controversial policies to the courts, either because they do not have the leeway to enact their preferred policies or to avoid electoral consequences [@Wittington2005; @BostonEtAl2022].
+Generally, in these analyses, the courts are treated as only considering the *direct* policy ramifications of their decisions.
+I take a new approach and consider that judges might take into account the policies that politicians will be able to pass in the periods following a controversial decision by the courts... as we've seen with the aftermath of the *Dobbs* decision, such cases can have an impact on citizens' voting intentions [@MahrPayne2022].[^3]
+
+[^3]: Many studies consider electoral effects on elected politicians' policy choices [e.g. @Calvert1985], but here I study a more indirect effect, the effect of concern for elected copartisans on the part of appointed politicians such as US Supreme Court justices.
+
+When we model judges' preferences over legislative policy in addition to the judicially created policy that they have direct control over, we see a new explanation for behavior such as Chief Justice Roberts' votes to uphold the ACA, DACA, and *Roe*.
+Rather than a concern for institutional legitimacy or being an ideological moderate, these seemingly liberal actions might have been taken precisely because Roberts is a staunch conservative, in order to avoid negative consequences for his ideological allies in the legislature.
+
+# Modelling Appointed Judges' Electoral Concerns
 
 The problem I am focusing on is a multimember court faced with an opportunity to adopt a controversial policy that a majority of its members want to adopt, and I restrict my attention to the bargaining problem among that majority.
 That is, they must determine how far they are willing to go given the controversial nature of the policy; do they fully implement the controversial policy and risk electoral backlash against their ideological allies in the government, or do they avoid adopting it for fear of electoral backlash?
@@ -33,11 +50,12 @@ Or perhaps do they take a half-measure, balancing their desire to implement this
 
 So, I consider a set $J$ of the judges of the potential majority coalition to enact this policy; each judge $i$'s preferences can be represented by the following utility function:
 
+```{=tex}
 \begin{equation}
 U_i(p; \alpha_i, \beta_i)
 = p\alpha_i + \left( 1 - p^2 \right)\beta_i.
 \end{equation}
-
+```
 Here $p \in [0, 1]$ represents the extent to which the court's opinion adopts the controversial policy and $\alpha_i > 0$ is the value of the policy to judge $i$, so that $p\alpha_i$ represents the policy gain from a choice of $p$ from $i$'s perspective.
 However, $i$ also cares about the policies that will be enacted by the government in the next period.
 Normalizing the value of the platform of $i$'s political opponents to $0$, $\beta_i$ represents the expected benefit of legislative policy in the next period---that is, the value of the platform of $i$'s copartisans weighted by the *a priori* probability that they are elected into government.
@@ -52,10 +70,8 @@ If that intersection is nonempty, the proposing judge chooses the $p$ from that 
 
 The first useful result is
 
-::: {.proposition}
-
-The maximum value of $p$ that a judge $i$ would accept is increasing in $\alpha_i$ and decreasing in $\beta_i$.
-
+::: proposition
+The maximum value of $p$ that a judge $i$ would accept is increasing in $\alpha_i$ and decreasing in $\beta_i$, and increasing in their ratio $\alpha_i / \beta_i$.
 :::
 
 This is readily apparent from the judges' acceptance regions, but its meaning is important.
@@ -65,7 +81,62 @@ As $\beta_i$ increases, the judge puts more value on their copartisans being abl
 So contrary to popular narratives, a judge being unwilling to sign on to adoption of a controversial policy may be precisely because they **are** ideologically extreme overall.
 Judges are simply more willing to adopt controversial policies when they are specifically ideologically extreme with respect to the single issue the controversial policy pertains to, and perhaps may even be more moderate overall than abstainers.
 
+Now consider that the judges may not be certain of the electoral impact of adopting the controversial policy.
+We can model this by adding a parameter $\kappa$ that scales the electoral cost $p^2$; in this extension the judges' preferences can be represented by the utility function
+
+```{=tex}
+\begin{equation}
+U_i(p; \alpha_i, \beta_i, \kappa)
+= p\alpha_i + \left( 1 - \Lambda(\kappa) p^2 \right)\beta_i,
+\end{equation}
+```
+\noindent where $\Lambda$ is the standard logistic function.
+To capture the idea that the judges aren't certain about the electoral impact, we will say that nature draws $\kappa$ from a standard normal distribution at the start of the game, but the judges do not observe the value drawn for $\kappa$.
+Instead, nature sends each judge $i$ a signal $s_i$, which is drawn from a normal distribution centered at $\kappa$ with precision $\tau_i$.
+Thus we can think about $\tau_i$ as judge $i$'s skill at reading the electoral environment.
+
+After observing signal $s_i$, judge $i$'s belief about the electoral cost of implementing the controversial policy is
+
+```{=tex}
+\begin{equation}
+\kappa \mid s_i \sim \mathcal{N}\left(\frac{s_i \tau_i}{\tau_i + 1}. \frac{1}{\tau_i + 1}\right),
+\end{equation}
+```
+Labelling the mean of this distribution $\hat{\kappa}_i$, we can now state the next result:
+
+::: proposition
+For two judges $i$ and $j$, $\tau_i > \tau_j$ implies
+
+```{=tex}
+\begin{enumerate}[(i)]
+\item $|\hat{\kappa}_i - \kappa| < |\hat{\kappa}_j - \kappa|$
+\item $|\hat{\kappa}_i| > |\hat{\kappa}_j|$
+\end{enumerate}
+```
+:::
+
+That is, when one judge has higher electoral discernment than another, the first implication is that their estimate of the electoral cost will be more accurate, and moreover, the second implication is that the estimate of the judge with lower electoral discernment will be biased toward zero.
+In particular, when nature draws a high electoral cost to implementing the controversial policy, judges with a low ability to read the electoral environment will be more likely not just to poorly estimate the electoral cost of the policy, but specifically to underestimate its true electoral cost.
+
+Recall Proposition 1 tells us that judges who are strong ideologues or partisans in the sense that they place heavy value on the legislative agenda their copartisans could enact relative to the specific policy at issue in the case before them will want a lower level of implementation of the controversial policy.
+Proposition 2 tells us that when there is uncertainty about the potential electoral cost, this effect is increasing in the judge's political savvy, or their ability to read the electoral environment.
+
 # Discussion
 
-<!-- ```{r child = "appendix.Rmd"} -->
-<!-- ``` -->
+Judges sometimes act in ways more moderate than we assume them to be, a phenomenon with several high profile examples on the US Supreme Court over the last decade.
+It's possible that these judges truly are moderates despite other indications of their ideology.
+Consider the example from the introduction, Chief Justice John Roberts.
+He served in the Justice Departments of two Republican presidents and advised the Republican Florida governor during the 2000 election recount process that culminated in a Republican winning the White House, the same Republican that nominated Roberts to be Chief Justice.
+Coupled with his numerous conservative opinions while serving on the Court, such as his dissent against marriage equality in *Obergefell v. Hodges*, one might consider him quite conservative, but over the last several years he has consistently ranked as a moderate on the popular Martin-Quinn scores [@MartinQuinn2002].
+On the other hand, maybe preferences over institutional legitimacy can explain his behavior in other cases like *NFIB v. Sebelius* [@Biskupic2019].
+
+I use a game theoretic model where judges balance their desire to enact a controversial policy (like striking down Obamacare or overruling *Roe v. Wade*) against the electoral cost to their ideological allies in the legislature to offer another perspective: Even judges who are strong ideologues may avoid enacting particular policies in line with their ideology if the electoral costs for their copartisans---who can enact legislation in line with the judge's ideology---may be too great.
+Specifically, the results show that judges who value general ideological policy from the legislature more than the specific policy gain from the particular controversial policy at issue may engage in this behavior.
+When the electoral costs are uncertain, those judges who are better able to read the electoral environment (i.e. receive a more precise signal about the electoral cost of the controversial policy) are more likely to engage in this behavior.
+These relationships interact with each other, such that politically savvy judges who are invested in their copartisans legislative agenda are the most likely to avoid implementing a controversial ideological policy precisely because they are strong ideologues, rather than the naive conclusion that they do it because they are moderates.
+
+These results have important implications for the study of judicial politics and offer promising avenues for new research.
+While a strand of the judicial politics literature argues elected officials may offload responsibility for enacting controversial policy to courts who are electorally insulated [e.g. @Wittington2005; @BostonEtAl2022], these results show this may backfire, since the judges may avoid the controversial policy because they worry their elected copartisans may face backlash anyway.
+@LauderdaleClark2012 show judges' preferences differ somewhat across specific issue areas; their approach of measuring issue-specific ideological bent could be utilized to leverage tension between preferences on specific controversial policies and general ideological disposition to use the implications of this study's model in future empirical research.
+
+# References {.unnumbered}
