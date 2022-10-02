@@ -6,36 +6,49 @@
 
 ::: {.proposition}
 
-If there is no uncertainty over $\varepsilon$ and only one judge, the judge chooses
-
-$$p=\left(\frac{\alpha_i}{\varepsilon\beta_i}\right)^{1/(\varepsilon-1)}$$
-
-unless $\varepsilon = 1$; then the judge chooses $p = 1$ if $\alpha_i > \beta_i$ and $p = 0$ otherwise.
+The maximum value of $p$ that a judge $i$ would accept is increasing in $\alpha_i$ and decreasing in $\beta_i$, and increasing in their ratio $\alpha_i / \beta_i$.
 
 :::
 
 ::: {.proof}
 
-When there is only one judge and no uncertainty over $\varepsilon$ to integrate out, it becomes a simple optimization problem:
+If no majority exists to set $p \neq 0$, then the controversial policy is not adopted at all, and judge $i$ will receive a payoff of $\beta_i$.
+Judge $i$ is indifferent between that outcome and adopting any particular value of $p$ when $U_i(p) = \beta_i$, which occurs when $p = \alpha_i / \beta_i$:
 
+```{=tex}
 \begin{align*}
-U_i(p; \alpha_i, \beta_i, \varepsilon)
-& = p\alpha_i + \left( 1 - p^\varepsilon \right)\beta_i \\
-& = p\alpha_i + \beta_i - p^\varepsilon\beta_i \\
-\pd{p} U_i
-& = \pd{p} p\alpha_i + \pd{p} \beta_i - \pd{p} p^\varepsilon\beta_i \\
-& = \alpha_i - \varepsilon\beta_i p^{\varepsilon-1} \\
-0 & \equiv \alpha_i - \varepsilon\beta_i p^{\varepsilon-1} \\
-\alpha_i
-& = \varepsilon\beta_i p^{\varepsilon-1} \\
-p^{\varepsilon-1}
-& = \frac{\alpha_i}{\varepsilon\beta_i} \\
-p^\ast
-& = \left(\frac{\alpha_i}{\varepsilon\beta_i}\right)^{1/(\varepsilon-1)}.
+p\alpha_i + \left( 1 - p^2 \right)\beta_i & = \beta_i \\
+p\alpha_i + \beta_i - p^2 \beta_i & = \beta_i \\
+p\alpha_i - p^2 \beta_i & = 0 \\
+p\alpha_i & = p^2 \beta_i \\
+p & = \frac{\alpha_i}{\beta_i}.
 \end{align*}
+```
 
-However, this $p^\ast$ is undefined when $\varepsilon = 1$, which makes sense:
-In that case, $i$'s utility is linear in $p$ so we're looking at a corner solution.
-If $\alpha_i > \beta_i$, then $U_i$ is increasing in $p$, so $i$ should choose $p = 1$, while the opposite is true if $\alpha_i < \beta_i$.
+Since $p \geq p^2$, for any $\alpha_i, \beta_i$, there exists a small enough $p$ such that $p\alpha_i > p^2 \beta_i$.
+Therefore, for $p^2 \beta_i$ to gain parity with $p\alpha_i$, it must be that $p^2 \beta_i$ has begun increasing faster than $p \alpha_i$.
+So, once $p = \alpha_i / \beta_i$, any further increase in $p$ means $i$ will strictly prefer to receive $\beta_i$ than $U_i(p)$.
+Therefore $i$'s acceptance set is $p \in [0, \alpha_i / \beta_i]$.
+Since $\alpha_i, \beta_i > 0$, the upper bound of this acceptance set is increasing in $\alpha_i$ and decreasing in $\beta_i$.
 
+:::
+
+::: {.proposition}
+
+For two judges $i$ and $j$, $\tau_i > \tau_j$ implies
+
+```{=tex}
+\begin{enumerate}[(i)]
+\item $\mathbb{E}\left[|\hat{\kappa}_i - \kappa|\right] < \mathbb{E}\left[|\hat{\kappa}_j - \kappa|\right]$
+\item $\mathbb{E}\left[|\hat{\kappa}_i|\right] > \mathbb{E}\left[|\hat{\kappa}_j|\right]$
+\end{enumerate}
+```
+
+:::
+
+::: {.proof}
+Since $\hat{\kappa}_i = s_i (\tau_i / (\tau_i + 1))$, judges moderate their estimate of $kappa$ from their signal $s_i$ toward the prior mean of $\kappa$, which is $0$.
+As $\tau_i$ increases, $\tau_i / (\tau_i + 1)$ increases, tending to $1$ in the limit.
+Therefore $\tau_i / (\tau_i + 1) > \tau_j / (\tau_j + 1)$ if $\tau_i > \tau_j$, and so in expectation, $|\hat{\kappa}_i| > |\hat{\kappa}_j|$.
+Similarly, because $\tau_i / (\tau_i + 1)$ if $\tau_i > \tau_j$, $|\hat{\kappa}_i - s_i| < |\hat{\kappa}_j - s_j|$ for any $s_i, s_j$, and in expectation $s_i$ is closer to $\kappa$ than $s_j$, implying $\mathbb{E}\left[|\hat{\kappa}_i - \kappa|\right] < \mathbb{E}\left[|\hat{\kappa}_j - \kappa|\right]$.
 :::

@@ -110,8 +110,8 @@ For two judges $i$ and $j$, $\tau_i > \tau_j$ implies
 
 ```{=tex}
 \begin{enumerate}[(i)]
-\item $|\hat{\kappa}_i - \kappa| < |\hat{\kappa}_j - \kappa|$
-\item $|\hat{\kappa}_i| > |\hat{\kappa}_j|$
+\item $\mathbb{E}\left[|\hat{\kappa}_i - \kappa|\right] < \mathbb{E}\left[|\hat{\kappa}_j - \kappa|\right]$
+\item $\mathbb{E}\left[|\hat{\kappa}_i|\right] > \mathbb{E}\left[|\hat{\kappa}_j|\right]$
 \end{enumerate}
 ```
 :::
@@ -139,5 +139,8 @@ These relationships interact with each other, such that politically savvy judges
 These results have important implications for the study of judicial politics and offer promising avenues for new research.
 While a strand of the judicial politics literature argues elected officials may offload responsibility for enacting controversial policy to courts who are electorally insulated [e.g. @Wittington2005; @BostonEtAl2022], these results show this may backfire, since the judges may avoid the controversial policy because they worry their elected copartisans may face backlash anyway.
 @LauderdaleClark2012 show judges' preferences differ somewhat across specific issue areas; their approach of measuring issue-specific ideological bent could be utilized to leverage tension between preferences on specific controversial policies and general ideological disposition to use the implications of this study's model in future empirical research.
+
+```{r child = "appendix.Rmd"}
+```
 
 # References {.unnumbered}
