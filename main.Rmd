@@ -1,10 +1,10 @@
 ---
 title: "Electoral Concerns of Appointed Judges"
-author: "JBrandon Duck-Mayr"
+author: "JBrandon Duck-Mayr\\thanks{Assistant Professor, University of Texas at Austin; j.duckmayr@gmail.com}"
 date: "September 30, 2022"
 fontsize: 12pt
 titlepage: true
-abstract: "Abstract (typically should be 150 words or less)"
+abstract: "Some accounts of the US Supreme Court's decisions in *NFIB v. Sebelius* and *Dobbs v. Jackson Women's Health Organization* paint Chief Justice John Roberts as an ardent institutionalist, seeking a middle way to protect the Court’s legitimacy; but what if there was another dynamic at play? A strand of the judicial politics literature argues politicians may offload the responsibility for enacting controversial policies to the courts, either because they do not have the leeway to enact their preferred policies or to avoid electoral consequences. In these analyses, courts often only consider the direct policy payoff of their decisions. However, as the aftermath of Dobbs shows, controversial decisions can impact citizens' voting intentions, even when made by the courts. I use a game theoretic model to explore the conditions under which multimember courts will enact controversial decisions that may (potentially) have electoral consequences for their ideological allies in the legislature."
 graphics: yes
 bibliography: judges-electoral-concerns.bib
 output:
@@ -33,7 +33,8 @@ More recently, Roberts has taken a number of such actions, such as voting (and a
 
 [^2]: *Department of Homeland Security v. Regents of the University of California*, 591 U.S. \_\_\_ (2020).
 
-But what if there was another dynamic at play? A strand of the judicial politics literature argues that politicians may offload the responsibility for pulling the trigger on controversial policies to the courts, either because they do not have the leeway to enact their preferred policies or to avoid electoral consequences [@Wittington2005; @BostonEtAl2022].
+But what if there was another dynamic at play?
+A strand of the judicial politics literature argues that politicians may offload the responsibility for pulling the trigger on controversial policies to the courts, either because they do not have the leeway to enact their preferred policies or to avoid electoral consequences [@Wittington2005; @BostonEtAl2022].
 Generally, in these analyses, the courts are treated as only considering the *direct* policy ramifications of their decisions.
 I take a new approach and consider that judges might take into account the policies that politicians will be able to pass in the periods following a controversial decision by the courts... as we've seen with the aftermath of the *Dobbs* decision, such cases can have an impact on citizens' voting intentions [@MahrPayne2022].[^3]
 
