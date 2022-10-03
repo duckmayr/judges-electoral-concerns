@@ -47,7 +47,7 @@ For two judges $i$ and $j$, $\tau_i > \tau_j$ implies
 :::
 
 ::: {.proof}
-Since $\hat{\kappa}_i = s_i (\tau_i / (\tau_i + 1))$, judges moderate their estimate of $kappa$ from their signal $s_i$ toward the prior mean of $\kappa$, which is $0$.
+Since $\hat{\kappa}_i = s_i (\tau_i / (\tau_i + 1))$, judges moderate their estimate of $\kappa$ from their signal $s_i$ toward the prior mean of $\kappa$, which is $0$.
 As $\tau_i$ increases, $\tau_i / (\tau_i + 1)$ increases, tending to $1$ in the limit.
 Therefore $\tau_i / (\tau_i + 1) > \tau_j / (\tau_j + 1)$ if $\tau_i > \tau_j$, and so in expectation, $|\hat{\kappa}_i| > |\hat{\kappa}_j|$.
 Similarly, because $\tau_i / (\tau_i + 1)$ if $\tau_i > \tau_j$, $|\hat{\kappa}_i - s_i| < |\hat{\kappa}_j - s_j|$ for any $s_i, s_j$, and in expectation $s_i$ is closer to $\kappa$ than $s_j$, implying $\mathbb{E}\left[|\hat{\kappa}_i - \kappa|\right] < \mathbb{E}\left[|\hat{\kappa}_j - \kappa|\right]$.

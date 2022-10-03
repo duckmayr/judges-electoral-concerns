@@ -100,10 +100,10 @@ After observing signal $s_i$, judge $i$'s belief about the electoral cost of imp
 
 ```{=tex}
 \begin{equation}
-\kappa \mid s_i \sim \mathcal{N}\left(\frac{s_i \tau_i}{\tau_i + 1}. \frac{1}{\tau_i + 1}\right),
+\kappa \mid s_i \sim \mathcal{N}\left(\frac{s_i \tau_i}{\tau_i + 1}, \frac{1}{\tau_i + 1}\right).
 \end{equation}
 ```
-Labelling the mean of this distribution $\hat{\kappa}_i$, we can now state the next result:
+Labeling the mean of this distribution $\hat{\kappa}_i$, we can now state the next result:
 
 ::: proposition
 For two judges $i$ and $j$, $\tau_i > \tau_j$ implies
