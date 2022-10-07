@@ -11,7 +11,10 @@ header-includes:
 output:
     quack::presentation:
         incremental: true
+        toc: false
 ---
+
+##
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -22,6 +25,10 @@ LightGreen  = rgb(166, 205,  87, maxColorValue = 255)
 DarkGreen   = rgb( 87, 157,  66, maxColorValue = 255)
 Teal        = rgb(  0, 169, 183, maxColorValue = 255)
 Blue        = rgb(  0,  95, 134, maxColorValue = 255)
+```
+
+```{r}
+knitr::include_graphics("dobbs-overrules-roe.png")
 ```
 
 ##
@@ -75,13 +82,17 @@ Each judge $i$'s preferences can be represented by the utility function
 
 $$
 U_i(p; \alpha_i, \beta_i)
-= {\color{DarkGreen}p\alpha_i} + {\color{Blue}\left( 1 - p^2 \right)\beta_i}
+= {\color{DarkGreen}p\alpha_i} + {\color{Blue}\left( 1 - {\color{BurntOrange}p^2} \right)\beta_i}
 $$
+
+. . .
 
 \begin{tabular}{cp{0.7\textwidth}}
 ${\color{DarkGreen}p\alpha_i}$
-& Policy benefit to $i$ of choosing $p$ \\
-${\color{Blue}\left( 1 - p^2 \right)\beta_i}$
+& Policy benefit to $i$ of choosing $p$ \\[0.25em]
+${\color{Blue}\beta_i}$
+& Expected policy gain from elected copartisans in absence of the controversial decision \\[1em]
+${\color{BurntOrange}-p^2 \beta_i}$
 & Expected policy loss from electoral backlash against copartisans of choosing $p$
 \end{tabular}
 
@@ -188,7 +199,7 @@ par(opar)
 - So we scale electoral backlash by randomly drawn multiplier $\Lambda(\kappa)$, where $\Lambda$ is the standard logistic function and $\kappa \sim \mathcal{N}(0, 1)$
 - Each judge $i$ gets a signal $s_i \sim \mathcal{N}(\kappa, 1/\tau_i)$; $\tau_i$ is the precision of judge $i$'s signal
 - Then $i$'s belief is distributed $$\kappa \mid s_i \sim \mathcal{N}\left(\frac{s_i \tau_i}{\tau_i + 1}, \frac{1}{\tau_i + 1}\right)$$
-- And judge $i$'s expected utility of enacting $p$ is $$ EU_i(p; \alpha_i, \beta_i, \kappa) = {\color{DarkGreen}p\alpha_i} + {\color{Blue}\left( 1 - {\color{LightOrange}\Lambda(\hat{\kappa}_i)}\, p^2 \right)\beta_i},$$ where $\hat{\kappa}_i = \frac{s_i \tau_i}{\tau_i + 1}$
+- And judge $i$'s expected utility of enacting $p$ is $$ EU_i(p; \alpha_i, \beta_i, \kappa) = {\color{DarkGreen}p\alpha_i} + {\color{Blue}\left( 1 - {\color{LightOrange}\Lambda(\hat{\kappa}_i)}\, {\color{BurntOrange}p^2} \right)\beta_i},$$ where $\hat{\kappa}_i = \frac{s_i \tau_i}{\tau_i + 1}$
 
 ## This Effect is Larger for Politically Savvy Judges
 
